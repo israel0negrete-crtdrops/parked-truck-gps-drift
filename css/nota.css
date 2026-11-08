@@ -1,0 +1,71 @@
+/* Lo propio de una nota: el cuerpo del artículo.
+ *
+ * Estaba dentro de un <style> en cada página generada. Como archivo aparte se
+ * cachea una vez, se lee en el repositorio, y permite que el servidor prohíba
+ * el estilo en línea en lugar de permitirlo. Lo genera build_notas.py en el
+ * <head>; la paleta y la tipografía vienen de site.css. */
+
+article { padding: 56px 0 30px; }
+article h1 { font-size: 38px; margin-bottom: 26px; }
+article h2 { font-size: 24px; margin: 40px 0 12px; }
+article p, article li { max-width: 66ch; }
+article ul, article ol { margin: 0 0 16px 22px; }
+article li { margin-bottom: 7px; }
+article blockquote {
+  border-left: 2px solid var(--azul); padding: 4px 0 4px 18px;
+  margin: 22px 0; color: var(--azul-claro); font-size: 19px;
+}
+article hr { border: 0; border-top: 1px solid var(--borde); margin: 40px 0 28px; }
+article strong { color: #fff; }
+article em { color: var(--suave); }
+.volver { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; }
+
+
+/* Tablas y bloques de código, que la primera nota no tenía. En el teléfono se
+ * deslizan dentro de su caja en vez de empujar la página de lado. */
+article table {
+  display: block; overflow-x: auto; max-width: 100%; border-collapse: collapse;
+  margin: 22px 0; font-family: var(--mono); font-size: 13px;
+}
+article th, article td {
+  text-align: left; padding: 8px 18px 8px 0; border-bottom: 1px solid var(--borde);
+  white-space: nowrap;
+}
+article th { font-weight: 400; color: var(--suave); }
+article pre {
+  background: var(--fondo-2); border: 1px solid var(--borde); border-radius: 6px;
+  padding: 14px 16px; margin: 20px 0; overflow-x: auto; font-size: 13px; line-height: 1.55;
+}
+article code { font-family: var(--mono); }
+/* El código dentro de un párrafo no se corta solo: un nombre de índice largo
+ * empujaba la nota de la consulta lenta a 414 px en un teléfono de 375. */
+article p code, article li code { overflow-wrap: anywhere; }
+/* Lo mismo con las direcciones escritas completas (las de Gumroad) a 320 px. */
+article p a, article li a { overflow-wrap: anywhere; }
+
+/* la portada propia de una nota, debajo del título */
+article img.portada {
+  display: block; width: 100%; height: auto; margin: 18px 0 30px;
+  border: 1px solid var(--borde); border-radius: 6px;
+}
+
+/* Al final de cada nota: las otras de su serie y el camino a la lista. */
+aside.serie { margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--borde); }
+aside.serie ul { list-style: none; margin: 12px 0 14px; }
+aside.serie li { margin-bottom: 9px; }
+.meta { font-family: var(--mono); font-size: 11.5px; color: var(--suave); white-space: nowrap; margin-left: 6px; }
+/* En Datos, la línea de archivos de cada medición es un párrafo .meta con
+ * cinco enlaces: sin cortes llegaba a 780 px en un teléfono. */
+p.meta { white-space: normal; overflow-wrap: anywhere; }
+
+/* La lista de todas las notas, agrupadas por serie. */
+.lista-notas h2 { font-size: 21px; margin: 38px 0 10px; }
+.lista-notas ul.notas { list-style: none; margin: 0; }
+.lista-notas ul.notas li { padding: 13px 0; border-bottom: 1px solid var(--borde); margin: 0; }
+.lista-notas ul.notas li > a { font-size: 19px; line-height: 1.35; }
+.lista-notas ul.notas li .meta { display: block; margin: 5px 0 0; }
+.lista-notas ul.notas li p { margin: 6px 0 0; font-size: 15.5px; color: var(--suave); }
+
+/* imágenes dentro del texto de una nota (gráficas) */
+article p:has(> img) { max-width: none; }
+article img:not(.portada) { display: block; max-width: 100%; height: auto; margin: 22px 0; border-radius: 6px; border: 1px solid var(--borde); }

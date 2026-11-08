@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="crtdrops">
+  <title>crtdrops</title>
+  <rect width="64" height="64" rx="14" fill="#0d0a06"/>
+  <g transform="translate(6 6) scale(.8125)">
+  <!-- la pantalla y su pie -->
+  <rect x="5" y="8" width="54" height="40" rx="8" fill="none" stroke="#ffb000" stroke-width="3.6"/>
+  <path d="M24 57h16M32 48v9" fill="none" stroke="#ffb000" stroke-width="3.6" stroke-linecap="round"/>
+  <!-- dos líneas de barrido, apagándose -->
+  <path d="M12 20h17" stroke="#ffb000" stroke-opacity=".5" stroke-width="3.2" stroke-linecap="round"/>
+  <path d="M12 28h11" stroke="#ffb000" stroke-opacity=".3" stroke-width="3.2" stroke-linecap="round"/>
+  <!-- la gota -->
+  <path d="M42 15C42 15 50.5 25.5 50.5 31a8.5 8.5 0 0 1-17 0C33.5 25.5 42 15 42 15z" fill="#33ff77"/>
+  </g>
+</svg>

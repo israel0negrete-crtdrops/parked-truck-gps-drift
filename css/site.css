@@ -1,0 +1,486 @@
+/* Paleta y tipografía tomadas de las portadas de los libros, para que el sitio
+   y lo publicado se reconozcan como la misma cosa. Sin dependencias. */
+
+:root {
+  --fondo:      #060f1c;
+  --fondo-2:    #0b1727;
+  --fondo-3:    #0f1f33;
+  --texto:      #e8eef7;
+  --suave:      #8fa6bd;
+  --tenue:      #55708c;
+  --azul:       #2f7fe0;
+  --azul-claro: #5b9ae8;
+  --verde:      #2f8f86;
+  --verde-vivo: #19d3a2;
+  --ambar:      #e3a13c;
+  --rojo:       #d9705f;
+  --borde:      rgba(90, 150, 220, .16);
+  --serif:      "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --mono:       ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --ancho:      1080px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 74px; }
+
+body {
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+
+.env { max-width: var(--ancho); margin: 0 auto; padding: 0 24px; }
+
+a { color: var(--azul-claro); text-decoration: none; border-bottom: 1px solid rgba(91,154,232,.35); }
+a:hover { border-bottom-color: var(--azul-claro); }
+
+/* ---------- barra ---------- */
+
+header.barra {
+  position: sticky; top: 0; z-index: 20;
+  background: rgba(6, 15, 28, .92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--borde);
+}
+.barra .env { display: flex; align-items: center; gap: 24px; height: 74px; }
+.marca { border: 0; display: flex; align-items: center; gap: 11px; }
+.marca img { display: block; height: 44px; width: 44px; }
+.marca span { font-family: var(--mono); font-size: 21px; font-weight: 600; letter-spacing: .05em; color: var(--texto); }
+.marca span b { color: var(--azul); font-weight: 600; }
+.barra nav { margin-left: auto; display: flex; gap: 22px; align-items: center; }
+.barra nav a { font-family: var(--mono); font-size: 12.5px; letter-spacing: .08em; color: var(--suave); border: 0; }
+.barra nav a:hover { color: var(--texto); }
+.barra .enlaces { display: flex; gap: 22px; align-items: center; }
+.menu-movil { display: none; }
+
+.idioma { display: flex; border: 1px solid var(--borde); border-radius: 4px; overflow: hidden; }
+.idioma button {
+  background: transparent; border: 0; cursor: pointer; color: var(--suave);
+  font-family: var(--mono); font-size: 11.5px; letter-spacing: .1em; padding: 5px 9px;
+}
+.idioma button[aria-pressed="true"] { background: var(--azul); color: #fff; }
+
+/* ---------- secciones ---------- */
+
+section { padding: 74px 0; border-bottom: 1px solid var(--borde); }
+section:last-of-type { border-bottom: 0; }
+
+.kicker {
+  font-family: var(--mono); font-size: 12px; letter-spacing: .26em;
+  color: var(--verde-vivo); margin-bottom: 18px;
+}
+h1 { font-size: 46px; line-height: 1.1; letter-spacing: -.02em; margin-bottom: 20px; font-weight: 700; }
+h2 { font-size: 31px; line-height: 1.16; letter-spacing: -.015em; margin-bottom: 16px; font-weight: 700; }
+h3 { font-size: 19px; margin-bottom: 8px; font-weight: 700; }
+p  { margin-bottom: 16px; max-width: 68ch; }
+p.guia { color: var(--suave); }
+.chico { font-size: 14.5px; color: var(--suave); }
+
+.hero { padding: 92px 0 78px; }
+.hero p.entrada { font-size: 20px; color: var(--suave); max-width: 62ch; }
+
+/* ---------- demo de tramas ---------- */
+
+.panel {
+  background: var(--fondo-2); border: 1px solid var(--borde);
+  border-radius: 10px; padding: 24px; margin-top: 26px;
+}
+
+.mandos { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 20px; }
+button.accion {
+  font-family: var(--mono); font-size: 12.5px; letter-spacing: .06em;
+  background: var(--azul); color: #fff; border: 0; border-radius: 5px;
+  padding: 9px 15px; cursor: pointer;
+}
+button.accion:hover { background: var(--azul-claro); }
+button.accion.sec { background: transparent; color: var(--suave); border: 1px solid var(--borde); }
+button.accion.sec:hover { color: var(--texto); border-color: var(--azul); }
+
+.mandos label { font-family: var(--mono); font-size: 12px; color: var(--suave); display: flex; align-items: center; gap: 7px; }
+.mandos select, .mandos input[type="range"] { accent-color: var(--azul); }
+.mandos select {
+  background: var(--fondo-3); color: var(--texto); border: 1px solid var(--borde);
+  border-radius: 4px; padding: 5px 7px; font-family: var(--mono); font-size: 12px;
+}
+
+.cable { display: flex; gap: 3px; align-items: flex-end; height: 42px; margin-bottom: 6px; overflow: hidden; }
+.blk { display: inline-block; height: 26px; border-radius: 3px; }
+.blk.ok   { background: rgba(47,143,134,.85); }
+.blk.raro { background: rgba(227,161,60,.85); }
+.leyenda { font-family: var(--mono); font-size: 11.5px; color: var(--tenue); margin-bottom: 22px; }
+
+.marcadores { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.marcador { background: var(--fondo-3); border: 1px solid var(--borde); border-radius: 8px; padding: 18px; }
+.marcador h4 { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; color: var(--suave); margin-bottom: 14px; font-weight: 400; }
+.cifra { font-family: var(--mono); font-size: 30px; line-height: 1.15; }
+.cifra.bien { color: var(--verde-vivo); }
+.cifra.mal  { color: var(--rojo); }
+.detalle { font-family: var(--mono); font-size: 12px; color: var(--suave); margin-top: 8px; }
+.detalle span { color: var(--texto); }
+
+/* ---------- herramienta de checksum ---------- */
+
+textarea.hex {
+  width: 100%; min-height: 96px; resize: vertical;
+  background: var(--fondo-3); color: var(--texto);
+  border: 1px solid var(--borde); border-radius: 6px; padding: 13px;
+  font-family: var(--mono); font-size: 13.5px; line-height: 1.7; letter-spacing: .04em;
+}
+textarea.hex:focus { outline: 0; border-color: var(--azul); }
+
+.ejemplos { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 18px; }
+.ejemplos button {
+  font-family: var(--mono); font-size: 11.5px; color: var(--suave);
+  background: transparent; border: 1px solid var(--borde); border-radius: 4px;
+  padding: 5px 10px; cursor: pointer;
+}
+.ejemplos button:hover { color: var(--texto); border-color: var(--azul); }
+
+table.res { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 13px; }
+table.res th {
+  text-align: left; font-weight: 400; color: var(--suave); font-size: 11.5px;
+  letter-spacing: .1em; padding: 8px 10px; border-bottom: 1px solid var(--borde);
+}
+table.res td { padding: 9px 10px; border-bottom: 1px solid rgba(90,150,220,.08); }
+table.res tr.hit td { color: var(--verde-vivo); }
+.aviso { font-family: var(--mono); font-size: 12.5px; color: var(--ambar); margin-top: 14px; }
+.aviso.bien { color: var(--verde-vivo); }
+
+/* ---------- publicado ---------- */
+
+.familias { display: grid; gap: 34px; margin-top: 30px; }
+.familia h3 { font-family: var(--mono); font-size: 12px; letter-spacing: .16em; color: var(--azul-claro); font-weight: 400; margin-bottom: 6px; }
+.familia p.linea { font-size: 15px; color: var(--suave); margin-bottom: 16px; max-width: 60ch; }
+.rejilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
+.tarjeta {
+  background: var(--fondo-2); border: 1px solid var(--borde); border-radius: 9px;
+  overflow: hidden; display: block; border-bottom: 1px solid var(--borde);
+}
+.tarjeta:hover { border-color: var(--azul); }
+.tarjeta img { width: 100%; display: block; aspect-ratio: 1/1; object-fit: cover; }
+.tarjeta .pie { padding: 11px 13px 13px; }
+.tarjeta .tit { font-size: 14.5px; line-height: 1.32; color: var(--texto); }
+.tarjeta .precio { font-family: var(--mono); font-size: 11.5px; color: var(--suave); margin-top: 6px; }
+.tarjeta .precio.libre { color: var(--verde-vivo); }
+
+/* ---------- pie ---------- */
+
+footer { padding: 46px 0 70px; }
+footer p { font-size: 14px; color: var(--tenue); }
+footer a { color: var(--suave); }
+
+/* ---------- idioma ---------- */
+
+[data-en] { display: revert; }
+body[data-idioma="en"] .solo-es { display: none; }
+body[data-idioma="es"] .solo-en { display: none; }
+
+@media (max-width: 720px) {
+  h1 { font-size: 33px; }
+  h2 { font-size: 25px; }
+  .marcadores { grid-template-columns: 1fr; }
+  .barra nav { gap: 14px; }
+  section { padding: 54px 0; }
+}
+/* En un teléfono ni siquiera cabían los dos enlaces que quedaban: la barra
+ * empujaba la página de lado, 470 px de contenido en una pantalla de 375, y se
+ * podía arrastrar todo el sitio en horizontal. La página es una sola columna que
+ * se recorre bajando; ahí basta con la marca y el idioma. Las páginas de adentro
+ * (notas, avisos, reportes) sí conservan sus enlaces .volver: son cortos, y sin
+ * ellos el único camino de regreso era adivinar que el logo es un enlace. */
+@media (max-width: 520px) {
+  .barra nav > a:not(.volver) { display: none; }
+}
+/* Pero así el sitio se quedaba sin menú en el teléfono (Israel, 2 nov): desde
+ * 720 px, donde ya no caben los cuatro enlaces, se guardan detrás de un botón y
+ * bajan en una lista debajo de la barra, sin empujar nada de lado. En las
+ * páginas con menú, los regresos que repiten un enlace del menú se van; queda
+ * el que cambia de idioma en las notas (lleva hreflang). */
+@media (max-width: 720px) {
+  .barra nav.con-menu > a.volver:not([hreflang]) { display: none; }
+  .barra .enlaces {
+    display: none; position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--fondo-2); border-bottom: 1px solid var(--borde);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, .45);
+  }
+  .barra.abierta .enlaces { display: flex; }
+  .barra .enlaces a {
+    display: block; padding: 15px 24px; font-size: 14px;
+    border-top: 1px solid var(--borde); color: var(--texto);
+  }
+  .menu-movil {
+    display: flex; flex-direction: column; justify-content: center; gap: 4px;
+    width: 38px; height: 32px; padding: 0 9px; cursor: pointer;
+    background: transparent; border: 1px solid var(--borde); border-radius: 4px;
+  }
+  .menu-movil span { display: block; height: 2px; background: var(--suave); border-radius: 1px; }
+  .barra.abierta .menu-movil { border-color: var(--azul); }
+  .barra.abierta .menu-movil span { background: var(--texto); }
+}
+/* Aun así, en las páginas de adentro la marca, "← Herramientas" y ES/EN sumaban
+ * unos 400 px: en una pantalla de 375 el botón EN quedaba medio fuera. En
+ * angosto se achican la marca y el enlace, y el enlace no se parte en dos. */
+@media (max-width: 440px) {
+  .barra .env { gap: 12px; }
+  .marca { gap: 8px; }
+  .marca img { height: 34px; width: 34px; }
+  .marca span { font-size: 17px; letter-spacing: .03em; }
+  .barra nav { gap: 10px; }
+  .barra nav a.volver { font-size: 11.5px; letter-spacing: .02em; white-space: nowrap; }
+  .idioma button { padding: 5px 7px; }
+}
+@media (max-width: 350px) {
+  .marca img { height: 28px; width: 28px; }
+  .marca span { font-size: 15px; }
+  .barra nav a.volver { font-size: 11px; letter-spacing: 0; }
+}
+
+/* ---------- tema alterno: fósforo ámbar ----------
+   El nombre del sitio habla de un tubo de rayos catódicos. Los dos fósforos
+   clásicos eran ámbar y verde; esta paleta usa los dos, sobre un negro cálido
+   en vez del azul marino. Se activa con body[data-tema="fosforo"] o con
+   ?tema=fosforo en la dirección. */
+
+body[data-tema="fosforo"] {
+  --fondo:      #0d0a06;
+  --fondo-2:    #161009;
+  --fondo-3:    #1d150b;
+  --texto:      #f4e9d4;
+  --suave:      #b3966a;
+  --tenue:      #7a6343;
+  --azul:       #ffb000;
+  --azul-claro: #ffc94d;
+  --verde:      #2f8f5a;
+  --verde-vivo: #33ff77;
+  --ambar:      #ff8c2b;
+  --rojo:       #ff5f4d;
+  --borde:      rgba(255, 176, 0, .18);
+}
+/* solo el botón principal lleva tinta oscura: va sobre ámbar sólido.
+   El secundario es transparente y necesita tinta clara. */
+body[data-tema="fosforo"] button.accion:not(.sec) { color: #1a1204; font-weight: 700; }
+body[data-tema="fosforo"] button.accion.sec { color: var(--suave); }
+body[data-tema="fosforo"] button.accion.sec:hover { color: var(--texto); border-color: var(--azul); }
+body[data-tema="fosforo"] .blk.ok   { background: rgba(51,255,119,.62); }
+body[data-tema="fosforo"] .blk.raro { background: rgba(255,140,43,.78); }
+body[data-tema="fosforo"] .textura-hex   { background-image: url("../img/fondo-hex-ambar.webp"); opacity: .22; }
+body[data-tema="fosforo"] .textura-traza { background-image: url("../img/fondo-traza-ambar.webp"); opacity: .38; }
+
+/* ---------- texturas de fondo ----------
+   Un volcado hexadecimal detrás de la portada y una banda de osciloscopio
+   detrás de las secciones. Van muy por debajo del texto: son textura, no
+   ilustración, y no compiten con la lectura. */
+
+.hero { position: relative; overflow: hidden; }
+.textura-hex {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: url("../img/fondo-hex-azul.webp") right top / auto 100% no-repeat;
+  opacity: .20;
+}
+.hero .env { position: relative; z-index: 1; }
+
+section { position: relative; overflow: hidden; }
+.textura-traza {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 300px; z-index: 0;
+  pointer-events: none;
+  background: url("../img/fondo-traza-azul.webp") center bottom / 1600px 300px repeat-x;
+  opacity: .34;
+}
+section .env { position: relative; z-index: 1; }
+
+/* ---------- tema de lectura ----------
+   Para las notas largas. El ámbar se queda como acento, que es lo que hace
+   marca, pero el fondo vuelve a ser frío y la tinta se entibia: mil doscientas
+   palabras en ámbar sobre negro cansan la vista, y una nota está para leerse
+   entera. */
+
+body[data-tema="lectura"] {
+  --fondo:      #0e1722;
+  --fondo-2:    #142031;
+  --fondo-3:    #1a2a3d;
+  --texto:      #e9e3d7;
+  --suave:      #9fb0c2;
+  --tenue:      #61788f;
+  --azul:       #ffb000;
+  --azul-claro: #ffc04a;
+  --verde:      #2f8f86;
+  --verde-vivo: #33d9a0;
+  --ambar:      #ff9a3c;
+  --rojo:       #e0705f;
+  --borde:      rgba(255, 176, 0, .15);
+}
+body[data-tema="lectura"] article { font-size: 18.5px; line-height: 1.74; }
+body[data-tema="lectura"] article p { margin-bottom: 20px; }
+
+/* ---------- alta en la lista ---------- */
+
+form.alta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 26px; max-width: 520px; }
+form.alta input[type="email"] {
+  flex: 1 1 260px; background: var(--fondo-3); color: var(--texto);
+  border: 1px solid var(--borde); border-radius: 5px; padding: 11px 13px;
+  font-family: var(--mono); font-size: 14px;
+}
+form.alta input[type="email"]:focus { outline: 0; border-color: var(--azul); }
+form.alta #trampa { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+form.alta button { flex: 0 0 auto; }
+form.alta button[disabled] { opacity: .55; cursor: default; }
+p.estado { font-family: var(--mono); font-size: 13px; margin-top: 12px; min-height: 1.2em; }
+p.estado.bien { color: var(--verde-vivo); }
+p.estado.mal  { color: var(--rojo); }
+
+/* Separaciones y el ancho doble de las tarjetas de nota.
+ *
+ * Esto estaba como style="" en el HTML. Vive aquí para que la política de
+ * contenido del servidor pueda prohibir el estilo en línea en vez de tener que
+ * permitirlo: con 'unsafe-inline' abierto, cualquier estilo inyectado pasa. */
+.sep-10 { margin-top: 10px; }
+.sep-16 { margin-top: 16px; }
+.sep-20 { margin-top: 20px; }
+.sep-22 { margin-top: 22px; }
+.tarjeta.ancha { grid-column: span 2; }
+
+/* Las páginas que sirve el servicio de la lista: confirmar el alta y la baja.
+ * Viven en el mismo dominio y comparten esta hoja; antes traían sus medidas
+ * como style="" y se habrían quedado desnudas al cerrar la política. */
+.pagina-servicio { padding-top: 110px; }
+.pagina-servicio h1 { font-size: 38px; }
+.sep-26 { margin-top: 26px; }
+
+/* ---------- revisión de un modelo ---------- */
+
+/* Toda la zona es el control: un label del input de archivo, así que el clic
+   en cualquier parte abre el selector y también recibe el archivo arrastrado.
+   Con un archivo cargado, se encoge a una ficha con su nombre y "Cambiar". */
+.zona-modelo {
+  position: relative;
+  border: 1.5px dashed var(--borde); border-radius: 10px; background: var(--fondo-2);
+  transition: border-color .15s, background .15s;
+}
+.zona-modelo.encima { border-color: var(--azul); background: var(--fondo-3); }
+.zona-modelo.con-archivo { border-style: solid; }
+.zona-modelo:focus-within { border-color: var(--azul); }
+/* fuera de la vista pero enfocable con el teclado: el borde de la zona marca el foco */
+.archivo-oculto {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+.zona-clic {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 30px 22px; text-align: center; cursor: pointer;
+}
+.zona-icono {
+  width: 46px; height: 46px; margin-bottom: 6px; border: 2px solid var(--azul); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 22px; color: var(--azul); transition: transform .15s;
+}
+.zona-clic:hover .zona-icono, .zona-modelo.encima .zona-icono { transform: translateY(-3px); }
+.zona-titulo { font-size: 21px; color: var(--texto); }
+.zona-sub { font-size: 15px; color: var(--suave); }
+.zona-cargado { display: flex; align-items: center; gap: 14px; padding: 14px 16px; }
+.zona-clic[hidden], .zona-cargado[hidden] { display: none; }
+.zona-ok {
+  flex: none; width: 34px; height: 34px; border: 2px solid var(--verde-vivo); border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); color: var(--verde-vivo);
+}
+.zona-ok.leyendo { border-color: var(--azul); color: var(--azul); }
+.zona-archivo { min-width: 0; }
+.zona-nombre { font-family: var(--mono); font-size: 15px; color: var(--texto); overflow-wrap: anywhere; }
+.zona-meta { font-size: 14px; color: var(--suave); }
+.boton-cambiar {
+  flex: none; margin-left: auto; cursor: pointer;
+  font-family: var(--mono); font-size: 13px; color: var(--azul);
+  border: 1px solid var(--borde); border-radius: 5px; padding: 9px 14px;
+}
+.boton-cambiar:hover { border-color: var(--azul); }
+
+.ficha-modelo { margin-top: 24px; }
+.ficha-modelo h3 {
+  font-family: var(--mono); font-size: 12px; letter-spacing: .14em; font-weight: 400;
+  color: var(--azul-claro); margin: 26px 0 10px; overflow-wrap: anywhere;
+}
+.ficha-modelo h3:first-child { margin-top: 0; }
+
+dl.resumen {
+  display: grid; grid-template-columns: max-content 1fr; gap: 7px 18px;
+  font-family: var(--mono); font-size: 13px; line-height: 1.5;
+}
+dl.resumen dt { color: var(--suave); }
+dl.resumen dd { color: var(--texto); overflow-wrap: anywhere; min-width: 0; }
+dl.resumen .hash { font-size: 12px; color: var(--suave); }
+
+ul.hallazgos { list-style: none; display: grid; gap: 10px; padding: 0; }
+ul.hallazgos li {
+  border-left: 3px solid var(--tenue); background: var(--fondo-2);
+  padding: 12px 15px; border-radius: 0 6px 6px 0;
+}
+ul.hallazgos li.riesgo { border-left-color: var(--rojo); }
+ul.hallazgos li.verificar { border-left-color: var(--ambar); }
+ul.hallazgos .nivel { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; margin-bottom: 5px; color: var(--suave); }
+ul.hallazgos li.riesgo .nivel { color: var(--rojo); }
+ul.hallazgos li.verificar .nivel { color: var(--ambar); }
+ul.hallazgos p.cuerpo { font-size: 15px; line-height: 1.55; color: var(--texto); }
+/* La fuente de cada hallazgo es lo que distingue esta herramienta: tiene que
+ * leerse, no adivinarse. Con --tenue el contraste quedaba en 3.3:1. */
+ul.hallazgos .fuente { font-family: var(--mono); font-size: 11.5px; color: var(--suave); margin-top: 7px; }
+ul.hallazgos .fuente a { color: var(--suave); }
+
+p.error-modelo { font-family: var(--mono); font-size: 13px; color: var(--ambar); margin-top: 18px; overflow-wrap: anywhere; }
+
+@media (max-width: 720px) {
+  dl.resumen { grid-template-columns: 1fr; gap: 2px; }
+  dl.resumen dt { margin-top: 10px; }
+}
+
+/* La tabla de lo medido: en el teléfono se desliza dentro de su caja en vez de
+ * empujar la página de lado. */
+h3.subtitulo {
+  font-family: var(--mono); font-size: 12px; letter-spacing: .14em; font-weight: 400;
+  color: var(--azul-claro); margin-bottom: 12px;
+}
+.tabla-desliza { overflow-x: auto; }
+.tabla-desliza table.res { min-width: 460px; }
+table.res td.falla { color: var(--rojo); }
+.ficha-modelo h3.medido { color: var(--verde-vivo); }
+
+/* ---------- los tres pasos y la compra ---------- */
+.entrada-seccion { font-size: 19px; color: var(--suave); max-width: 62ch; }
+.sep-36 { margin-top: 36px; }
+.pasos { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
+.paso { background: var(--fondo-2); border: 1px solid var(--borde); border-radius: 10px; padding: 16px 18px; }
+.paso-n { font-family: var(--mono); font-size: 11.5px; letter-spacing: .12em; color: var(--azul-claro); }
+.paso-t { font-size: 20px; margin: 6px 0 6px; color: var(--texto); }
+.paso p { font-size: 15px; color: var(--suave); line-height: 1.5; }
+.paso-enlace { display: inline-block; margin-top: 10px; font-family: var(--mono); font-size: 12.5px; }
+
+/* un enlace con aspecto de botón: la compra va a Gumroad, no a un formulario */
+.compra { display: flex; flex-wrap: wrap; gap: 10px; }
+a.boton {
+  display: inline-block; font-family: var(--mono); font-size: 13px; letter-spacing: .06em;
+  background: var(--azul); color: #fff; border: 1px solid var(--azul); border-radius: 5px; padding: 11px 18px;
+}
+a.boton:hover { background: var(--azul-claro); border-color: var(--azul-claro); }
+a.boton.sec { background: transparent; color: var(--suave); border-color: var(--borde); }
+a.boton.sec:hover { color: var(--texto); border-color: var(--azul); }
+body[data-tema="fosforo"] a.boton:not(.sec) { color: #1a1204; font-weight: 700; }
+
+ul.garantias { list-style: none; padding: 0; display: grid; gap: 7px; }
+ul.garantias li { font-size: 15px; color: var(--suave); padding-left: 22px; position: relative; max-width: 64ch; }
+ul.garantias li::before { content: "✓"; position: absolute; left: 0; color: var(--verde-vivo); }
+
+/* ---- el juego ---- */
+a.juego-captura { display: block; max-width: 760px; border: 1px solid var(--borde); border-radius: 10px; overflow: hidden; }
+a.juego-captura:hover { border-color: var(--azul); }
+a.juego-captura img { display: block; width: 100%; height: auto; }
+
+/* Puertas de la portada y lista de herramientas: tarjetas sin imagen, con una
+   línea que dice qué hace cada cosa. */
+.tarjeta .desc { font-size: 13.5px; line-height: 1.42; color: var(--suave); margin-top: 6px; }
+.tarjeta .ir { font-family: var(--mono); font-size: 11.5px; letter-spacing: .06em; color: var(--azul); margin-top: 10px; }
+.grupo { font-family: var(--mono); font-size: 12px; letter-spacing: .12em; color: var(--verde-vivo); margin: 30px 0 12px; }
+.puertas .tarjeta .tit { font-size: 17px; }

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El camión estacionado: simulador de filtros GPS — crtdrops</title>
+<meta name="description" content="Simula una noche de un camión estacionado con su GPS ruidoso, una maniobra lenta, una grúa con el motor apagado y el viaje de la mañana, y compara tres maneras de contar: sumar puntos, el recorte de velocidad y el ancla con varias señales. Corre en tu navegador.">
+<link rel="stylesheet" href="../css/site.css?v=18">
+<link rel="stylesheet" href="../css/nota.css?v=18">
+<link rel="stylesheet" href="../css/gps.css?v=2">
+<link rel="icon" type="image/svg+xml" href="../img/favicon-ambar.svg?v=14">
+<link rel="icon" sizes="any" href="../favicon.ico?v=14">
+<link rel="canonical" href="https://crtdrops.mx/gps/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="crtdrops">
+<meta property="og:url" content="https://crtdrops.mx/gps/">
+<meta property="og:title" content="El camión estacionado: simulador de filtros GPS — crtdrops">
+<meta property="og:description" content="¿Cuántos kilómetros suma un camión que nadie tocó, y qué esconde el filtro que los quita? En tu navegador.">
+<meta property="og:image" content="https://crtdrops.mx/img/notas/el-camion-estacionado.png">
+<meta name="twitter:card" content="summary_large_image">
+<script src="../js/idioma.js?v=18" defer></script>
+<script src="../js/gps-calculo.js?v=1" defer></script>
+<script src="../js/gps.js?v=3" defer></script>
+</head>
+<body data-idioma="es" data-tema="lectura">
+
+<header class="barra">
+  <div class="env">
+    <a class="marca" href="https://crtdrops.mx/"><img src="../img/isotipo-ambar.svg?v=14" alt="" width="44" height="44"><span><b>crt</b>drops</span></a>
+    <nav>
+      <a class="volver" href="https://crtdrops.mx/herramientas/" data-es="&larr; Herramientas" data-en="&larr; Tools">&larr; Herramientas</a>
+      <span class="idioma">
+        <button type="button" data-set-idioma="es" aria-pressed="true">ES</button>
+        <button type="button" data-set-idioma="en" aria-pressed="false">EN</button>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<article id="simulador">
+  <div class="env">
+    <div class="kicker" data-es="HERRAMIENTA · RASTREO" data-en="TOOL · VEHICLE TRACKING">HERRAMIENTA · RASTREO</div>
+    <h1 data-es="El camión estacionado" data-en="The parked truck">El camión estacionado</h1>
+    <p class="entrada" data-es="¿Cuántos kilómetros suma un camión que nadie tocó, y qué esconde el filtro que los quita?" data-en="How many kilometers does a truck nobody touched rack up, and what does the filter that removes them hide?">¿Cuántos kilómetros suma un camión que nadie tocó, y qué esconde el filtro que los quita?</p>
+    <p data-es="Simula una noche en el patio: el GPS con su error de siempre y, si quieres, una maniobra lenta, una grúa que se lo lleva despacio con el motor apagado y el viaje de la mañana. Luego cuenta los kilómetros de tres maneras: sumando puntos, con el recorte de velocidad que casi todos usan, y anclando el punto con varias señales. Corre en tu navegador y no envía nada."
+       data-en="It simulates a night in the yard: the GPS with its usual error and, if you want, a slow maneuver, a tow truck hauling it away slowly with the ignition off, and the morning trip. Then it counts the kilometers three ways: adding up points, with the speed clip almost everyone uses, and anchoring the point with several signals. It runs in your browser and sends nothing.">Simula una noche en el patio: el GPS con su error de siempre y, si quieres, una maniobra lenta, una grúa que se lo lleva despacio con el motor apagado y el viaje de la mañana. Luego cuenta los kilómetros de tres maneras: sumando puntos, con el recorte de velocidad que casi todos usan, y anclando el punto con varias señales. Corre en tu navegador y no envía nada.</p>
+
+    <fieldset>
+      <legend data-es="LA NOCHE" data-en="THE NIGHT">LA NOCHE</legend>
+      <div class="campos">
+        <label><span data-es="Dónde se estaciona" data-en="Where it parks">Dónde se estaciona</span>
+          <select id="g-entorno">
+            <option value="abierto" data-es="Cielo abierto · error ≈ 2.5 m" data-en="Open sky · error ≈ 2.5 m">Cielo abierto · error ≈ 2.5 m</option>
+            <option value="lamina" data-es="Techo de lámina · error ≈ 6 m" data-en="Sheet-metal roof · error ≈ 6 m">Techo de lámina · error ≈ 6 m</option>
+            <option value="techado" data-es="Estacionamiento techado · error ≈ 15 m" data-en="Covered parking · error ≈ 15 m">Estacionamiento techado · error ≈ 15 m</option>
+          </select></label>
+        <label><span data-es="Un reporte cada" data-en="One report every">Un reporte cada</span>
+          <select id="g-intervalo">
+            <option value="10">10 s</option>
+            <option value="30">30 s</option>
+            <option value="60">60 s</option>
+          </select></label>
+        <label><span data-es="Horas estacionado" data-en="Hours parked">Horas estacionado</span><input id="g-horas" type="number" min="2" max="14" step="1"></label>
+      </div>
+      <label class="casilla"><input id="g-maniobra" type="checkbox"> <span data-es="Una maniobra lenta en el patio: 140 m a 3 km/h, con el motor encendido." data-en="A slow maneuver in the yard: 140 m at 3 km/h, ignition on.">Una maniobra lenta en el patio: 140 m a 3 km/h, con el motor encendido.</span></label>
+      <label class="casilla"><input id="g-remolque" type="checkbox"> <span data-es="Una grúa se lo lleva 400 m a paso de hombre, con el motor apagado." data-en="A tow truck hauls it 400 m at walking pace, ignition off.">Una grúa se lo lleva 400 m a paso de hombre, con el motor apagado.</span></label>
+      <label class="casilla"><input id="g-viaje" type="checkbox"> <span data-es="El viaje de la mañana: 27 km de ciudad y carretera, con un tramo a 140 km/h." data-en="The morning trip: 27 km of city and highway, with a stretch at 140 km/h.">El viaje de la mañana: 27 km de ciudad y carretera, con un tramo a 140 km/h.</span></label>
+    </fieldset>
+
+    <fieldset>
+      <legend data-es="LOS FILTROS" data-en="THE FILTERS">LOS FILTROS</legend>
+      <div class="campos">
+        <label><span data-es="Recorte: abajo de (km/h), a cero" data-en="Clip: below (km/h), to zero">Recorte: abajo de (km/h), a cero</span><input id="g-bajo" type="number" min="0" max="30" step="1"></label>
+        <label><span data-es="Recorte: arriba de (km/h), se recorta" data-en="Clip: above (km/h), clipped">Recorte: arriba de (km/h), se recorta</span><input id="g-alto" type="number" min="40" max="250" step="5"></label>
+        <label><span data-es="Ancla: radio (m)" data-en="Anchor: radius (m)">Ancla: radio (m)</span><input id="g-radio" type="number" min="5" max="200" step="5"></label>
+      </div>
+      <div class="acciones">
+        <button type="button" id="otra" class="accion" data-es="Otra noche" data-en="Another night">Otra noche</button>
+        <button type="button" id="copiar" class="accion sec" data-es="Copiar enlace con esta noche" data-en="Copy link with this night">Copiar enlace con esta noche</button>
+      </div>
+    </fieldset>
+
+    <section class="resultado" aria-live="polite">
+      <p id="veredicto" class="veredicto"></p>
+      <div class="tabla-gps">
+        <table id="tabla"><thead><tr></tr></thead><tbody></tbody></table>
+      </div>
+    </section>
+
+    <div class="grafica">
+      <h3 data-es="KILÓMETROS QUE SUMA CADA UNO, HORA POR HORA" data-en="KILOMETERS EACH ONE ADDS UP, HOUR BY HOUR">KILÓMETROS QUE SUMA CADA UNO, HORA POR HORA</h3>
+      <p class="ayuda" data-es="La línea punteada es lo que de verdad recorrió el camión. Lo que sube antes del viaje, con el camión parado, son kilómetros fantasma." data-en="The dotted line is what the truck really covered. Whatever climbs before the trip, with the truck parked, is phantom kilometers.">La línea punteada es lo que de verdad recorrió el camión. Lo que sube antes del viaje, con el camión parado, son kilómetros fantasma.</p>
+      <svg id="g-curvas" role="img" aria-label="Kilómetros acumulados por método" data-aria-es="Kilómetros acumulados por método" data-aria-en="Kilometers added up by each method"></svg>
+    </div>
+
+    <div class="grafica">
+      <h3 data-es="EL PATIO VISTO DESDE ARRIBA, ANTES DEL VIAJE" data-en="THE YARD FROM ABOVE, BEFORE THE TRIP">EL PATIO VISTO DESDE ARRIBA, ANTES DEL VIAJE</h3>
+      <p class="ayuda" data-es="Cada punto es un reporte del equipo; los más tenues traen un fix pobre. La línea es el camino real." data-en="Each dot is a report from the device; the faintest ones carry a poor fix. The line is the real path.">Cada punto es un reporte del equipo; los más tenues traen un fix pobre. La línea es el camino real.</p>
+      <svg id="g-patio" role="img" aria-label="Puntos reportados en el patio" data-aria-es="Puntos reportados en el patio" data-aria-en="Points reported in the yard"></svg>
+      <div class="leyenda">
+        <span class="gps" data-es="lo que mandó el GPS" data-en="what the GPS sent">lo que mandó el GPS</span>
+        <span class="real" data-es="dónde está de verdad" data-en="where it really is">dónde está de verdad</span>
+        <span class="recorte" data-es="dónde lo deja el recorte" data-en="where the clip leaves it">dónde lo deja el recorte</span>
+        <span class="ancla" data-es="el ancla y su radio" data-en="the anchor and its radius">el ancla y su radio</span>
+      </div>
+    </div>
+
+    <h2 data-es="Cómo calcula" data-en="How it computes">Cómo calcula</h2>
+    <p data-es="El error del GPS se sortea en cada eje con una distribución normal, independiente de un reporte al siguiente, igual que en la cuenta de la nota; los rebotes de 20 a 50 metros y los reportes con fix pobre salen con la frecuencia de cada lugar. La velocidad que reporta el equipo trae su propio ruido. La vibración del acelerómetro está presente cuando el camión se mueve, y de vez en cuando aparece un golpe suelto con el camión quieto. El azar lleva semilla: el enlace copiado repite la misma noche."
+       data-en="GPS error is drawn on each axis from a normal distribution, independent from one report to the next, just like the arithmetic in the note; bounces of 20 to 50 meters and poor-fix reports come at each place's rate. The speed the device reports carries its own noise. Accelerometer vibration is present when the truck moves, and now and then a stray bump shows up with the truck still. The randomness is seeded: a copied link repeats the same night.">El error del GPS se sortea en cada eje con una distribución normal, independiente de un reporte al siguiente, igual que en la cuenta de la nota; los rebotes de 20 a 50 metros y los reportes con fix pobre salen con la frecuencia de cada lugar. La velocidad que reporta el equipo trae su propio ruido. La vibración del acelerómetro está presente cuando el camión se mueve, y de vez en cuando aparece un golpe suelto con el camión quieto. El azar lleva semilla: el enlace copiado repite la misma noche.</p>
+    <p data-es="Sumar puntos: la distancia entre cada posición y la siguiente. Recorte: abajo del umbral la velocidad es cero y el punto no se mueve; arriba del tope la velocidad se recorta; la distancia se mide desde el último punto aceptado. Ancla: estacionado, el punto se fija y los saltos dentro del radio se ignoran; hay movimiento si hay vibración sostenida, si el motor está encendido y la velocidad es de verdad, o si la posición sale del radio con buen fix y se queda fuera cuatro reportes seguidos. Sólo se suma lo recorrido en movimiento y con buen fix, y moverse con el motor apagado levanta la alerta."
+       data-en="Adding up points: the distance between each position and the next. Clip: below the threshold the speed is zero and the point does not move; above the cap the speed is clipped; distance is measured from the last accepted point. Anchor: when parked, the point is pinned and jumps inside the radius are ignored; there is movement if there is sustained vibration, if the ignition is on and the speed is real, or if the position leaves the radius with a good fix and stays out for four reports in a row. Only what was covered while moving and with a good fix is added, and moving with the ignition off raises the alert.">Sumar puntos: la distancia entre cada posición y la siguiente. Recorte: abajo del umbral la velocidad es cero y el punto no se mueve; arriba del tope la velocidad se recorta; la distancia se mide desde el último punto aceptado. Ancla: estacionado, el punto se fija y los saltos dentro del radio se ignoran; hay movimiento si hay vibración sostenida, si el motor está encendido y la velocidad es de verdad, o si la posición sale del radio con buen fix y se queda fuera cuatro reportes seguidos. Sólo se suma lo recorrido en movimiento y con buen fix, y moverse con el motor apagado levanta la alerta.</p>
+    <p data-es="Lo que no modela: que el error real de un receptor cambia despacio y no salta libre de un reporte al siguiente (con intervalos cortos, los kilómetros fantasma serían menos), las zonas sin cobertura que hacen que el equipo guarde y mande tarde, los túneles, la aceleración y el odómetro del vehículo. En el viaje, los tres métodos miden con los mismos puntos y cuentan las curvas como cuerdas: para la distancia de verdad, el odómetro. Las cifras son ilustrativas, como las de la nota."
+       data-en="What it does not model: that a real receiver's error changes slowly instead of jumping freely from one report to the next (with short intervals there would be fewer phantom kilometers), coverage gaps that make the device store and send late, tunnels, acceleration and the vehicle's odometer. On the trip, all three methods measure with the same points and count curves as chords: for the true distance, the odometer. The figures are illustrative, like the ones in the note.">Lo que no modela: que el error real de un receptor cambia despacio y no salta libre de un reporte al siguiente (con intervalos cortos, los kilómetros fantasma serían menos), las zonas sin cobertura que hacen que el equipo guarde y mande tarde, los túneles, la aceleración y el odómetro del vehículo. En el viaje, los tres métodos miden con los mismos puntos y cuentan las curvas como cuerdas: para la distancia de verdad, el odómetro. Las cifras son ilustrativas, como las de la nota.</p>
+    <p><a href="https://crtdrops.mx/notas/el-camion-estacionado.html" data-href-es="https://crtdrops.mx/notas/el-camion-estacionado.html" data-href-en="https://crtdrops.mx/notas/the-parked-truck.html" data-es="La nota: el camión estacionado que seguía sumando kilómetros →" data-en="The note: the parked truck that kept racking up kilometers →">La nota: el camión estacionado que seguía sumando kilómetros →</a></p>
+  </div>
+</article>
+
+<footer>
+  <div class="env">
+    <p data-es="Corre entera en tu navegador: lo que pegues o abras aquí no se envía a ningún servidor ni se guarda. No hay analítica de terceros."
+       data-en="It runs entirely in your browser: nothing you paste or open here is sent to any server or stored. There is no third-party analytics.">Corre entera en tu navegador: lo que pegues o abras aquí no se envía a ningún servidor ni se guarda. No hay analítica de terceros.</p>
+    <p class="sep-10"><a href="https://crtdrops.mx/herramientas/" data-es="Todas las herramientas" data-en="All the tools">Todas las herramientas</a> · <a href="https://crtdrops.mx/" data-es="Portada" data-en="Home">Portada</a></p>
+    <p class="sep-10">crtdrops.mx · © Israel Negrete Lepe · 2026 · <a href="https://crtdrops.mx/aviso-privacidad.html" data-href-es="https://crtdrops.mx/aviso-privacidad.html" data-href-en="https://crtdrops.mx/aviso-privacidad.html#en" data-es="Aviso de privacidad" data-en="Privacy notice">Aviso de privacidad</a> · <a href="https://crtdrops.mx/aviso-legal.html" data-href-es="https://crtdrops.mx/aviso-legal.html" data-href-en="https://crtdrops.mx/aviso-legal.html#en" data-es="Aviso legal" data-en="Legal notice">Aviso legal</a></p>
+  </div>
+</footer>
+</body>
+</html>
